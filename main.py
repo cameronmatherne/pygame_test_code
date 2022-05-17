@@ -13,6 +13,8 @@ pygame.display.set_caption("Game Test")
 WHITE = (255,255,255)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 128)
+BLACK = (0, 0, 0)
+
 
 IMAGE1_WIDTH, IMAGE1_HEIGHT = 100,80
 
@@ -38,8 +40,11 @@ def main():
     floor = 310 
     frames = 60 
 
-    VEL = 5
+    VEL =  5
+    BULLET_VEL = 7 
     MASS = 1 
+    droppings = [] 
+
 
     isJumping = False 
     jumpCount = 10
@@ -55,21 +60,29 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_o:
+                    obstacle = pygame.Rect(300, 200, )
+
+
         # call method to draw background and player1 
         draw_window(player1)
 
 
 
-        keys_pressed = pygame.key.get_pressed()
-        if keys_pressed[pygame.K_a]: # left
-            player1.x -= VEL
-        if keys_pressed[pygame.K_d]: # right
-            player1.x += VEL
 
+
+        keys_pressed = pygame.key.get_pressed()
+        # player movement 
+        if keys_pressed[pygame.K_a] and player1.x - VEL > -5: # left
+            player1.x -= VEL
+        if keys_pressed[pygame.K_d] and player1.x + VEL < 705: # right
+            player1.x += VEL
         if keys_pressed[pygame.K_SPACE]: # jump 
             isJumping = True
-    
 
+        # jump loop, needs fixing 
         if isJumping: 
             if jumpCount >= -10:
                 neg = 1
